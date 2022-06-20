@@ -3,8 +3,8 @@ import { prisma } from "../../prisma";
 
 interface ICreateActivity{
     plantId: string;
-    activity: Activity
-    period: Period
+    activity: Activity;
+    period: Period;
     period_qd: number;
 }
 
@@ -12,8 +12,6 @@ export class CreateActivityUseCase{
 
     async execute({plantId, activity, period, period_qd }: ICreateActivity){
 
-
-        
         const activityAlreadyExists = await prisma.activityCycle.findFirst({
             where: {
                 plantId,
