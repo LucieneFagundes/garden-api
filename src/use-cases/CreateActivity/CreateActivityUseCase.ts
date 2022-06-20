@@ -6,11 +6,12 @@ interface ICreateActivity{
     activity: Activity;
     period: Period;
     period_qd: number;
+    notes?: string;
 }
 
 export class CreateActivityUseCase{
 
-    async execute({plantId, activity, period, period_qd }: ICreateActivity){
+    async execute({plantId, activity, period, period_qd, notes }: ICreateActivity){
 
         const activityAlreadyExists = await prisma.activityCycle.findFirst({
             where: {
@@ -30,7 +31,8 @@ export class CreateActivityUseCase{
                 plantId, 
                 activity, 
                 period, 
-                period_qd
+                period_qd,
+                notes
             }
         })
 

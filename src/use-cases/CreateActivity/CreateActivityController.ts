@@ -5,15 +5,21 @@ import { CreateActivityUseCase } from "./CreateActivityUseCase";
 export class CreateActivityController {
 
     async handle(request: Request, response: Response){
-        const {plantId, activity, period, period_qd} = request.body;
-        console.log(request.body);
+        const {plantId, activity, period, period_qd, notes} = request.body;
         
         const createActivityUseCase = new CreateActivityUseCase();
 
-        const care = await createActivityUseCase.execute({
-            plantId, activity, period, period_qd
-        })
-
-        return response.status(201).json(care);
+        try {
+            const care = await createActivityUseCase.execute({
+                plantId, activity, period, period_qd, notes
+            })
+    
+            return response.status(201).json(care);
+            
+        } catch (error) {
+            return response.status(400).json({
+                message: error.message || 'Unexpected error.'
+            });
+        }
     }
 }

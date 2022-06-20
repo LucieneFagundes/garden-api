@@ -4,14 +4,14 @@ import { CreatePlantUseCase } from "./CreatePlantUseCase";
 
 export class CreatePlantController {
     async handle(request: Request, response: Response) {
-        const { name, species, photo, userId } = request.body;
+        const { name, species, photo, notes, userId } = request.body;
 
         try {
 
             const createPlantUseCase = new CreatePlantUseCase()
 
             const plant = await createPlantUseCase.execute({
-                name, species, photo, userId
+                name, species, photo, notes, userId
             })
 
             return response.status(201).json(plant)

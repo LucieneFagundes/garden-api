@@ -6,11 +6,12 @@ export interface ICreatePlant {
     name: string;
     species?: string;
     photo?: string;
+    notes?: string;
     userId: string;
 }
 
 export class CreatePlantUseCase {
-    async execute({ name, species, photo, userId }: ICreatePlant) {
+    async execute({ name, species, photo, notes, userId }: ICreatePlant) {
 
         const plantAlreadyExists = await prisma.user.findFirst({ 
             where: { 
@@ -34,6 +35,7 @@ export class CreatePlantUseCase {
                 name,
                 species,
                 photo,
+                notes,
                 userId,
             }
         })
