@@ -3,11 +3,11 @@ import { prisma } from "../../prisma";
 
 
 export class ListPlantByUserUseCase{
-    async execute(idUser: ParamsDictionary){
+    async execute(user: ParamsDictionary){
 
         return await prisma.plant.findMany({
             where: {
-                userId: idUser.id
+                userId: user.id
             }
         }); 
     }
