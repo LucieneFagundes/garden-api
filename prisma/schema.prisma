@@ -40,17 +40,19 @@ model Plant {
 
 model ActivityCycle {
 
-  id String @id @default(uuid())
-  activity  Activity
-  period    Period
-  period_qd Int
-  notes     String?
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  id            String   @id @default(uuid())
+  activity      Activity
+  period        Period
+  period_qd     Int
+  notes         String?
+  initial_event DateTime
+  next_event    DateTime 
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
 
   plant   Plant  @relation(fields: [plantId], references: [id])
   plantId String
-  
+
   @@map("activities_cycle")
 }
 
