@@ -1,7 +1,7 @@
-import { prisma } from "../../prisma";
+import { prisma } from "../prisma";
 
 
-export class ListUserUseCase {
+export class ListUserService {
 
     async execute() {
         const users = await prisma.user.findMany();

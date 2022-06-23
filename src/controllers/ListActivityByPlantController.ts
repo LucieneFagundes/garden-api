@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { ListActivityByPlantUseCase } from "./ListActivityByPlantUseCase";
+import { ListActivityByPlantService } from "../services/ListActivityByPlantService";
 
 export class ListActivityByPlantController {
     async handle(request: Request, response: Response) {
 
         const plantId = request.params;
-        const listActivityByPlantUseCase = new ListActivityByPlantUseCase();
+        const listActivityByPlantService = new ListActivityByPlantService();
 
         try {
-            const list = await listActivityByPlantUseCase.execute(plantId);
+            const list = await listActivityByPlantService.execute(plantId);
 
             return response.status(200).json(list);
         } catch (error) {

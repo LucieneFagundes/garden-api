@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
-import { UpdateEventActivityUseCase } from "./UpdateEventActivityUseCase";
+import { UpdateEventActivityService } from "../services/UpdateEventActivityService";
 
 export class UpdateEventActivityController {
     async handle(request: Request, response: Response) {
         const { id } = request.params;
 
-        const updateEventActivityUseCase = new UpdateEventActivityUseCase();
+        const updateEventActivityService = new UpdateEventActivityService();
 
 
 
         try {
-            const up_event = updateEventActivityUseCase.execute(id);
+            const up_event = updateEventActivityService.execute(id);
 
             return response.status(201).json(up_event);
 

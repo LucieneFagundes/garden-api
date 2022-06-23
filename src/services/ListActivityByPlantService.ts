@@ -1,7 +1,7 @@
 import { ParamsDictionary } from "express-serve-static-core";
-import { prisma } from "../../prisma";
+import { prisma } from "../prisma";
 
-export class ListActivityByPlantUseCase{
+export class ListActivityByPlantService{
     async execute (plantId: ParamsDictionary) {
         const activities = await prisma.activityCycle.findMany({
             where: {

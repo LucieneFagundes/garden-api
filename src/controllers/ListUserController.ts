@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
-import { ListUserUseCase } from "./ListUserUseCase";
+import { ListUserService } from "../services/ListUserService";
+
 
 export class ListUserController {
     async handle(request: Request, response: Response) {
-        const listUserUseCase = new ListUserUseCase();
+        const listUserService = new ListUserService();
 
         try {
-            const users = await listUserUseCase.execute(); 
+            const users = await listUserService.execute(); 
                       
             return response.status(200).json(users);
 

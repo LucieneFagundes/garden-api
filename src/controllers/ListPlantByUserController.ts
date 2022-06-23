@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { ListPlantByUserUseCase } from "./ListPlantByUserUseCase";
+import { ListPlantByUserService } from "../services/ListPlantByUserService";
 
 export class ListPlantByUserController {
     async handle(request: Request, response: Response) {
         const id = request.params;
 
-        const listPlantByUserUseCase = new ListPlantByUserUseCase();
+        const listPlantByUserService = new ListPlantByUserService();
 
         try {
-            const plants = await listPlantByUserUseCase.execute(id)
+            const plants = await listPlantByUserService.execute(id)
 
             return response.status(201).json(plants)
 

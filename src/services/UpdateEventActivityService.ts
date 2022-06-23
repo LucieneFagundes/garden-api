@@ -1,7 +1,7 @@
-import { prisma } from "../../prisma";
-import { ActivityService } from "../../services/ActivityService/ActivityService";
+import { prisma } from "../prisma";
+import { ActivityService } from "./functions/ActivityService";
 
-export class UpdateEventActivityUseCase {
+export class UpdateEventActivityService {
     async execute(id: string) {
         const activityService = new ActivityService();
         const activity = await prisma.activityCycle.findFirst({

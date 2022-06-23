@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
-import { CreateActivityUseCase } from "./CreateActivityUseCase";
+import { CreateActivityService } from "../services/CreateActivityService";
+
 
 export class CreateActivityController {
 
     async handle(request: Request, response: Response) {
         const { plantId, activity, period, period_qd, notes, initial_event } = request.body;
 
-        const createActivityUseCase = new CreateActivityUseCase();
+        const createActivityService = new CreateActivityService();
 
         try {
-            const care = await createActivityUseCase.execute({
+            const care = await createActivityService.execute({
                 plantId, activity, period, period_qd, notes, initial_event
             })
 

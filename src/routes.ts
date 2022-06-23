@@ -1,14 +1,21 @@
 import { Router } from "express";
-import { createActivityController } from "./use-cases/CreateActivity";
-import { createPlantController } from "./use-cases/CreatePlant";
-import { createUserController } from "./use-cases/CreateUser";
-import { listActivityByPlantController } from "./use-cases/ListActivity";
-import { listPlantByUserController } from "./use-cases/ListPlant";
-import { listUserController } from "./use-cases/ListUser";
-import { updateEventActivityController } from "./use-cases/UpdateEventActivity";
+import { CreateActivityController } from "./controllers/CreateActivityController";
+import { CreatePlantController } from "./controllers/CreatePlantController";
+import { CreateUserController } from "./controllers/CreateUserController";
+import { ListActivityByPlantController } from "./controllers/ListActivityByPlantController";
+import { ListPlantByUserController } from "./controllers/ListPlantByUserController";
+import { ListUserController } from "./controllers/ListUserController";
+import { UpdateEventActivityController } from "./controllers/UpdateEventActivityController";
 
 const routes = Router();
 
+const createActivityController = new CreateActivityController();
+const createPlantController = new CreatePlantController();
+const createUserController = new CreateUserController();
+const listActivityByPlantController = new ListActivityByPlantController();
+const listPlantByUserController = new ListPlantByUserController();
+const listUserController = new ListUserController();
+const updateEventActivityController = new UpdateEventActivityController();
 
 routes.get('/users', listUserController.handle);
 routes.post('/users', createUserController.handle);

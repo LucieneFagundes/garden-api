@@ -1,6 +1,6 @@
 import { Activity, Period } from "@prisma/client";
-import { prisma } from "../../prisma";
-import { ActivityService } from "../../services/ActivityService/ActivityService";
+import { prisma } from "../prisma";
+import { ActivityService } from "./functions/ActivityService";
 
 interface ICreateActivity {
     plantId: string;
@@ -11,7 +11,7 @@ interface ICreateActivity {
     initial_event: Date;
 }
 
-export class CreateActivityUseCase {
+export class CreateActivityService {
 
     async execute({ plantId, activity, period, period_qd, notes, initial_event }: ICreateActivity) {
 

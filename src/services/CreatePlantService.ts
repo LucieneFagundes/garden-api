@@ -1,6 +1,4 @@
-import { prisma } from "../../prisma";
-import { ICreateUser } from "../CreateUser/CreateUserUseCase";
-
+import { prisma } from "../prisma";
 
 export interface ICreatePlant {
     name: string;
@@ -10,7 +8,7 @@ export interface ICreatePlant {
     userId: string;
 }
 
-export class CreatePlantUseCase {
+export class CreatePlantService {
     async execute({ name, species, photo, notes, userId }: ICreatePlant) {
 
         const plantAlreadyExists = await prisma.user.findFirst({ 

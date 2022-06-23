@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreatePlantUseCase } from "./CreatePlantUseCase";
+import { CreatePlantService} from "../services/CreatePlantService";
 
 
 export class CreatePlantController {
@@ -8,9 +8,9 @@ export class CreatePlantController {
 
         try {
 
-            const createPlantUseCase = new CreatePlantUseCase()
+            const createPlantService = new CreatePlantService()
 
-            const plant = await createPlantUseCase.execute({
+            const plant = await createPlantService.execute({
                 name, species, photo, notes, userId
             })
 
