@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { ListUserService } from "../services/ListUserService";
+import { ListUserService } from "../../services/User/ListUserService";
+
 
 
 export class ListUserController {

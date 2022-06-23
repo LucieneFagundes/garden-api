@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { CreatePlantService} from "../services/CreatePlantService";
+import { CreatePlantService } from "../../services/Plant/CreatePlantService";
+
 
 
 export class CreatePlantController {

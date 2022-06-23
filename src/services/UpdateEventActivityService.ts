@@ -20,6 +20,7 @@ export class UpdateEventActivityService {
                 next_event: activity.next_event
             }
         });
+        
 
         console.log(up_event)
         return up_event;
