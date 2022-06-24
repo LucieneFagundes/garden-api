@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ListActivityByPlantService } from "../services/ListActivityByPlantService";
+import { ListActivityByPlantService } from "../../services/Activity/ListActivityByPlantService";
 
 export class ListActivityByPlantController {
     async handle(request: Request, response: Response) {
@@ -16,7 +16,5 @@ export class ListActivityByPlantController {
                 message: error.message || 'Unexpected error'
             });
         }
-
-
     }
 }

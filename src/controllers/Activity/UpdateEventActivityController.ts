@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
-import { UpdateEventActivityService } from "../services/UpdateEventActivityService";
+import { UpdateEventActivityService } from "../../services/Activity/UpdateEventActivityService";
 
 export class UpdateEventActivityController {
+    //UPDATE NEXT_EVENT
     async handle(request: Request, response: Response) {
         const { id } = request.params;
 
         const updateEventActivityService = new UpdateEventActivityService();
-
-
 
         try {
             const up_event = updateEventActivityService.execute(id);
@@ -19,7 +18,6 @@ export class UpdateEventActivityController {
                 message: error.message || 'Unexpected error.'
             });
         }
-
 
     }
 }

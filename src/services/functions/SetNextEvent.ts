@@ -1,7 +1,7 @@
 import { Period } from "@prisma/client";
 
 
-export class ActivityService {
+export class SetNextEvent {
     execute(period: Period, period_qd: number, initial_event: Date){
         
         var data = new Date(initial_event)

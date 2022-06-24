@@ -1,16 +1,21 @@
-import { prisma } from "../prisma";
-import { ActivityService } from "./functions/ActivityService";
+import { prisma } from "../../prisma";
+import { SetNextEvent } from "../functions/SetNextEvent";
 
 export class UpdateEventActivityService {
+    //UPDATE NEXT_EVENT
     async execute(id: string) {
-        const activityService = new ActivityService();
         const activity = await prisma.activityCycle.findFirst({
             where: {
                 id
             }
         })
 
-        activity.next_event = activityService.execute(activity.period, activity.period_qd, activity.next_event);
+        if(!activity){
+            throw new Error("Activity not found");
+        }
+
+        const setNextEvent = new SetNextEvent();
+        activity.next_event = setNextEvent.execute(activity.period, activity.period_qd, activity.next_event);
 
         const up_event = await prisma.activityCycle.update({
             where: {
@@ -20,7 +25,6 @@ export class UpdateEventActivityService {
                 next_event: activity.next_event
             }
         });
-        
 
         console.log(up_event)
         return up_event;

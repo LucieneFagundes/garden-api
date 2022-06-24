@@ -1,6 +1,6 @@
 import { Activity, Period } from "@prisma/client";
-import { prisma } from "../prisma";
-import { ActivityService } from "./functions/ActivityService";
+import { prisma } from "../../prisma";
+import { SetNextEvent } from "../functions/SetNextEvent";
 
 interface ICreateActivity {
     plantId: string;
@@ -12,10 +12,8 @@ interface ICreateActivity {
 }
 
 export class CreateActivityService {
-
     async execute({ plantId, activity, period, period_qd, notes, initial_event }: ICreateActivity) {
 
-        const activityService = new ActivityService();
         const activityAlreadyExists = await prisma.activityCycle.findFirst({
             where: {
                 plantId,
@@ -24,12 +22,14 @@ export class CreateActivityService {
                 }
             }
         })
-
-        const next_event = activityService.execute(period, period_qd, initial_event);
-
+        
         if (activityAlreadyExists) {
             throw new Error("Activity already exists")
         }
+        
+        const setNextEvent = new SetNextEvent();
+        const next_event = setNextEvent.execute(period, period_qd, initial_event);
+
 
         const care = await prisma.activityCycle.create({
             data: {

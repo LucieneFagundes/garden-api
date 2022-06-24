@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateActivityService } from "../services/CreateActivityService";
+import { CreateActivityService } from "../../services/Activity/CreateActivityService";
 
 
 export class CreateActivityController {
