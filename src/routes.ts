@@ -8,6 +8,7 @@ import { ListUserController } from "./controllers/User/ListUserController";
 import { UpdateEventActivityController } from "./controllers/UpdateEventActivityController";
 import { EditUserController } from "./controllers/User/EditUserController";
 import { EditPlantController } from "./controllers/Plant/EditPlantController";
+import { DeletePlantController } from "./controllers/Plant/DeletePlantController";
 
 const routes = Router();
 
@@ -22,6 +23,7 @@ const updateEventActivityController = new UpdateEventActivityController();
 const editUserController = new EditUserController();
 const editPlantController = new EditPlantController();
 
+const deletePlantController = new DeletePlantController();
 
 routes.get('/users', listUserController.handle);
 routes.post('/users', createUserController.handle);
@@ -30,6 +32,7 @@ routes.patch('/user', editUserController.handle);
 routes.get('/plants/:id', listPlantByUserController.handle);
 routes.post('/plants', createPlantController.handle);
 routes.patch('/plant', editPlantController.handle);
+routes.delete('/plant/:id', deletePlantController.handle);
 
 routes.get('/activities/:id', listActivityByPlantController.handle);
 routes.post('/activities', createActivityController.handle);
