@@ -2,13 +2,25 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { prisma } from "../../prisma";
 
 
-export class ListPlantByUserService{
-    async execute(user: ParamsDictionary){
+export class ListPlantByUserService {
+    async execute(userId: ParamsDictionary) {
 
-        return await prisma.plant.findMany({
+        const userExists = await prisma.user.findFirst({
             where: {
-                userId: user.id
+                id: userId.id
             }
-        }); 
+        })
+
+        if (!userExists) {
+            throw new Error("User not found")
+        }
+
+        const plants = await prisma.plant.findMany({
+            where: {
+                userId: userId.id
+            }
+        })
+
+        return plants;
     }
 }

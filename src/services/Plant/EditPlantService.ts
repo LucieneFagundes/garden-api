@@ -1,9 +1,6 @@
-
-
 import { prisma } from "../../prisma";
 
-
-interface IEditPlant{
+interface IEditPlant {
     id: string;
     name: string,
     species: string,
@@ -13,12 +10,12 @@ interface IEditPlant{
 }
 
 export class EditPlantService {
-    async execute({id, name, species, photo, notes, updated_at} : IEditPlant) {
+    async execute({ id, name, species, photo, notes, updated_at }: IEditPlant) {
         const plant = await prisma.plant.findFirst({
             where: { id }
         })
 
-        if(!plant){
+        if (!plant) {
             throw new Error("Plant not found");
         }
 
@@ -28,7 +25,7 @@ export class EditPlantService {
             where: {
                 id: plant.id,
             },
-            data:{
+            data: {
                 name,
                 species,
                 photo,

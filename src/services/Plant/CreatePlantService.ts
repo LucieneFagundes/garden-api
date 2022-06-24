@@ -11,19 +11,19 @@ export interface ICreatePlant {
 export class CreatePlantService {
     async execute({ name, species, photo, notes, userId }: ICreatePlant) {
 
-        const plantAlreadyExists = await prisma.user.findFirst({ 
-            where: { 
+        const plantAlreadyExists = await prisma.user.findFirst({
+            where: {
                 id: userId,
-                AND:{ 
-                    plants:{
-                        some:{
-                            name:name
+                AND: {
+                    plants: {
+                        some: {
+                            name: name
                         }
                     }
                 }
-            } 
+            }
         })
-        
+
         if (plantAlreadyExists) {
             throw new Error("Plant with this name already existing.")
         }

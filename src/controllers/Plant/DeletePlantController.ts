@@ -9,7 +9,7 @@ export class DeletePlantController {
         try {
             await deletePlantService.execute(plantId);
 
-            return response.status(200).send();            
+            return response.status(200).send();
         } catch (error) {
             return response.status(404).json({
                 message: error.message || 'Unexpected error'

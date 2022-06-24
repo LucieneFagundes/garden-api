@@ -7,11 +7,11 @@ export class EditPlantController {
 
         const editPlantService = new EditPlantService();
         try {
-            const plantUpdated = await editPlantService.execute(data);
+            await editPlantService.execute(data);
 
             return response.status(200).send();
         } catch (error) {
-            return response.status(400).json({
+            return response.status(404).json({
                 message: error.message || "Unexpected error"
             })
         }

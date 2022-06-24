@@ -15,7 +15,7 @@ export class CreatePlantController {
                 name, species, photo, notes, userId
             })
 
-            return response.status(201).json(plant)
+            return response.status(201).send();
 
         } catch (error) {
             return response.status(400).json({

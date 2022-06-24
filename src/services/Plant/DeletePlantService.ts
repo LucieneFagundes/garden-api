@@ -2,15 +2,15 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { prisma } from "../../prisma";
 
 export class DeletePlantService {
-    async execute(plantId: ParamsDictionary){
+    async execute(plantId: ParamsDictionary) {
         const plantNotFound = await prisma.plant.findFirst({
-            where: {id: plantId.id}
+            where: { id: plantId.id }
         })
 
-        if(!plantNotFound){
+        if (!plantNotFound) {
             throw new Error("Plant not found");
         }
-        
+
         const deleteActivities = prisma.activityCycle.deleteMany({
             where: {
                 plantId: plantId.id,
@@ -18,14 +18,14 @@ export class DeletePlantService {
         });
 
         const deletePlant = prisma.plant.delete({
-            where:{
+            where: {
                 id: plantId.id,
             }
         })
-        
+
         const transaction = await prisma.$transaction([deleteActivities, deletePlant]);
 
         return transaction;
-        
+
     }
 }
