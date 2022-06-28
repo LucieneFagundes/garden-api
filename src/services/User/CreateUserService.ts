@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { prisma } from "../../prisma";
 import { ICreatePlant } from "../Plant/CreatePlantService";
 
@@ -19,11 +20,13 @@ export class CreateUserService {
             throw new Error(`User already exists.`);
         }
 
+        const passwordHash = await hash(password, 8);
+
         const user = await prisma.user.create({
             data: {
                 name,
                 email,
-                password,
+                password: passwordHash,
                 photo,
                 active: true
             }
