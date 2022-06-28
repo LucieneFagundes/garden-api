@@ -8,9 +8,11 @@ import { CreatePlantController } from "./controllers/Plant/CreatePlantController
 import { DeletePlantController } from "./controllers/Plant/DeletePlantController";
 import { EditPlantController } from "./controllers/Plant/EditPlantController";
 import { ListPlantByUserController } from "./controllers/Plant/ListPlantByUserController";
+import { AuthenticateUserController } from "./controllers/User/AuthenticateUserController";
 import { CreateUserController } from "./controllers/User/CreateUserController";
 import { EditUserController } from "./controllers/User/EditUserController";
 import { ListUserController } from "./controllers/User/ListUserController";
+import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 
 
 const routes = Router();
@@ -18,6 +20,7 @@ const routes = Router();
 const createUserController = new CreateUserController();
 const editUserController = new EditUserController();
 const listUserController = new ListUserController();
+const authenticateUserController = new AuthenticateUserController();
 
 const createPlantController = new CreatePlantController();
 const editPlantController = new EditPlantController();
@@ -34,8 +37,9 @@ const updateEventActivityController = new UpdateEventActivityController();
 routes.get('/users', listUserController.handle);
 routes.post('/users', createUserController.handle);
 routes.patch('/user', editUserController.handle);
+routes.post('/login', authenticateUserController.handle);
 
-routes.get('/plants/:id', listPlantByUserController.handle);
+routes.get('/plants/:id',ensureAuthenticated, listPlantByUserController.handle);
 routes.post('/plants', createPlantController.handle);
 routes.patch('/plant', editPlantController.handle);
 routes.delete('/plant/:id', deletePlantController.handle);
