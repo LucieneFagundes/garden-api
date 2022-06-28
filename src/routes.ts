@@ -34,21 +34,21 @@ const deleteActivityController = new DeleteActivityController();
 const updateEventActivityController = new UpdateEventActivityController();
 
 
-routes.get('/users', listUserController.handle);
+routes.get('/users', ensureAuthenticated, listUserController.handle);
 routes.post('/users', createUserController.handle);
-routes.patch('/user', editUserController.handle);
+routes.patch('/user', ensureAuthenticated, editUserController.handle);
 routes.post('/login', authenticateUserController.handle);
 
-routes.get('/plants/:id',ensureAuthenticated, listPlantByUserController.handle);
-routes.post('/plants', createPlantController.handle);
-routes.patch('/plant', editPlantController.handle);
-routes.delete('/plant/:id', deletePlantController.handle);
+routes.get('/plants/:id', ensureAuthenticated, listPlantByUserController.handle);
+routes.post('/plants', ensureAuthenticated, createPlantController.handle);
+routes.patch('/plant', ensureAuthenticated, editPlantController.handle);
+routes.delete('/plant/:id', ensureAuthenticated, deletePlantController.handle);
 
-routes.get('/activities/:id', listActivityByPlantController.handle);
-routes.post('/activities', createActivityController.handle);
-routes.put('/activities-update-event/:id', updateEventActivityController.handle);
-routes.patch('/activity', editActivityController.handle);
-routes.delete('/activity/:id', deleteActivityController.handle);
+routes.get('/activities/:id', ensureAuthenticated, listActivityByPlantController.handle);
+routes.post('/activities', ensureAuthenticated, createActivityController.handle);
+routes.put('/activities-update-event/:id', ensureAuthenticated, updateEventActivityController.handle);
+routes.patch('/activity', ensureAuthenticated, editActivityController.handle);
+routes.delete('/activity/:id', ensureAuthenticated, deleteActivityController.handle);
 
 
 export { routes }
