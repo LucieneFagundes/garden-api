@@ -29,6 +29,14 @@ export class AuthenticateUserService {
             expiresIn: "6h",
         })
 
-        return token;
+        return {
+            token,
+            user:{
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                photo: user.photo,
+            }
+        };
     }
 }

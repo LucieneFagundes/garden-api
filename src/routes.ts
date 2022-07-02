@@ -11,6 +11,7 @@ import { ListPlantByUserController } from "./controllers/Plant/ListPlantByUserCo
 import { AuthenticateUserController } from "./controllers/User/AuthenticateUserController";
 import { CreateUserController } from "./controllers/User/CreateUserController";
 import { EditUserController } from "./controllers/User/EditUserController";
+import { FindUserController } from "./controllers/User/FindUserController";
 import { ListUserController } from "./controllers/User/ListUserController";
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 
@@ -21,6 +22,7 @@ const createUserController = new CreateUserController();
 const editUserController = new EditUserController();
 const listUserController = new ListUserController();
 const authenticateUserController = new AuthenticateUserController();
+const findUserController = new FindUserController();
 
 const createPlantController = new CreatePlantController();
 const editPlantController = new EditPlantController();
@@ -38,6 +40,7 @@ routes.get('/users', ensureAuthenticated, listUserController.handle);
 routes.post('/users', createUserController.handle);
 routes.patch('/user', ensureAuthenticated, editUserController.handle);
 routes.post('/login', authenticateUserController.handle);
+routes.get('/user/:id', ensureAuthenticated, findUserController.handle)
 
 routes.get('/plants/:id', ensureAuthenticated, listPlantByUserController.handle);
 routes.post('/plants', ensureAuthenticated, createPlantController.handle);
