@@ -1,4 +1,5 @@
 import { hash } from "bcryptjs";
+import { sign } from "jsonwebtoken";
 import { prisma } from "../../prisma";
 import { ICreatePlant } from "../Plant/CreatePlantService";
 
@@ -6,12 +7,10 @@ export interface ICreateUser {
     name: string;
     email: string;
     password: string;
-    photo?: string;
-    plants?: ICreatePlant
 }
 
 export class CreateUserService {
-    async execute({ name, email, password, photo }: ICreateUser) {
+    async execute({ name, email, password }: ICreateUser) {
         const alreadyExists = await prisma.user.findFirst({
             where: { email }
         });
@@ -27,10 +26,26 @@ export class CreateUserService {
                 name,
                 email,
                 password: passwordHash,
-                photo,
                 active: true
             }
         })
-        return user;
+
+        const token = sign({}, "T0P$3cr3T", {
+            subject: user.id,
+            expiresIn: "6h",
+        })
+
+        return {
+            token: {
+                token,
+                id: user.id,
+            },
+            user: {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                photo: user.photo,
+            }
+        };
     }
 }

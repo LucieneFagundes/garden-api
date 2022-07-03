@@ -3,21 +3,20 @@ import { CreateUserService } from "../../services/User/CreateUserService";
 
 export class CreateUserController {
     async handle(request: Request, response: Response) {
-        const { name, email, password, photo } = request.body;
+        const { name, email, password } = request.body;
 
         const createUserService = new CreateUserService();
 
         try {
-            await createUserService.execute({
+            const { token, user } = await createUserService.execute({
                 name,
                 email,
                 password,
-                photo
             })
 
-            return response.status(201).send()
+            return response.json({ token, user })
         } catch (error) {
-            
+
             return response.status(400).json({
                 message: error.message || 'Unexpected error.'
             });

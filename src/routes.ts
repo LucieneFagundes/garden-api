@@ -36,11 +36,13 @@ const deleteActivityController = new DeleteActivityController();
 const updateEventActivityController = new UpdateEventActivityController();
 
 
-routes.get('/users', ensureAuthenticated, listUserController.handle);
-routes.post('/users', createUserController.handle);
-routes.patch('/user', ensureAuthenticated, editUserController.handle);
 routes.post('/login', authenticateUserController.handle);
+
+routes.post('/user', createUserController.handle);
+routes.get('/user', ensureAuthenticated, listUserController.handle);
+routes.patch('/user', editUserController.handle);
 routes.get('/user/:id', ensureAuthenticated, findUserController.handle)
+
 
 routes.get('/plants/:id', ensureAuthenticated, listPlantByUserController.handle);
 routes.post('/plants', ensureAuthenticated, createPlantController.handle);

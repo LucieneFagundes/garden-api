@@ -30,7 +30,10 @@ export class AuthenticateUserService {
         })
 
         return {
-            token,
+            token: {
+                token,
+                id: user.id,
+            },
             user:{
                 id: user.id,
                 email: user.email,
