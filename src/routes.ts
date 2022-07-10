@@ -7,6 +7,7 @@ import { UpdateEventActivityController } from "./controllers/Activity/UpdateEven
 import { CreatePlantController } from "./controllers/Plant/CreatePlantController";
 import { DeletePlantController } from "./controllers/Plant/DeletePlantController";
 import { EditPlantController } from "./controllers/Plant/EditPlantController";
+import { FindPlantController } from "./controllers/Plant/FindPlantController";
 import { ListPlantByUserController } from "./controllers/Plant/ListPlantByUserController";
 import { AuthenticateUserController } from "./controllers/User/AuthenticateUserController";
 import { CreateUserController } from "./controllers/User/CreateUserController";
@@ -23,10 +24,11 @@ const editUserController = new EditUserController();
 const listUserController = new ListUserController();
 const authenticateUserController = new AuthenticateUserController();
 const findUserController = new FindUserController();
+const listPlantByUserController = new ListPlantByUserController();
 
 const createPlantController = new CreatePlantController();
 const editPlantController = new EditPlantController();
-const listPlantByUserController = new ListPlantByUserController();
+const findPlantController = new FindPlantController();
 const deletePlantController = new DeletePlantController();
 
 const createActivityController = new CreateActivityController();
@@ -42,10 +44,11 @@ routes.post('/user', createUserController.handle);
 routes.get('/user', ensureAuthenticated, listUserController.handle);
 routes.patch('/user', editUserController.handle);
 routes.get('/user/:id', ensureAuthenticated, findUserController.handle)
+routes.get('/plants/:userId', ensureAuthenticated, listPlantByUserController.handle); //TODO : Modificar nome da rota
 
 
-routes.get('/plants/:id', ensureAuthenticated, listPlantByUserController.handle);
-routes.post('/plants', ensureAuthenticated, createPlantController.handle);
+routes.post('/plant', ensureAuthenticated, createPlantController.handle);
+routes.get('/plant/:id', ensureAuthenticated, findPlantController.handle)
 routes.patch('/plant', ensureAuthenticated, editPlantController.handle);
 routes.delete('/plant/:id', ensureAuthenticated, deletePlantController.handle);
 
