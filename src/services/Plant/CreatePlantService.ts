@@ -1,4 +1,5 @@
 import { prisma } from "../../prisma";
+import { empty } from "../../utils/utils";
 
 export interface ICreatePlant {
     name: string;
@@ -10,6 +11,10 @@ export interface ICreatePlant {
 
 export class CreatePlantService {
     async execute({ name, species, photo, notes, userId }: ICreatePlant) {
+
+        species = empty(species);
+        notes = empty(notes);
+        photo = empty(photo);
 
         const plantAlreadyExists = await prisma.user.findFirst({
             where: {
