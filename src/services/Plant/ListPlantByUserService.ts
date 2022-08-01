@@ -3,11 +3,12 @@ import { prisma } from "../../prisma";
 
 
 export class ListPlantByUserService {
-    async execute(userId: ParamsDictionary) {
+    async execute({userId}: any) {
+        console.log(userId, 1111);
 
         const userExists = await prisma.user.findFirst({
             where: {
-                id: userId.id
+                id: userId
             }
         })
 
@@ -17,7 +18,7 @@ export class ListPlantByUserService {
 
         const plants = await prisma.plant.findMany({
             where: {
-                userId: userId.id
+                userId
             }
         })
 
