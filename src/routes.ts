@@ -16,6 +16,7 @@ import { FindUserController } from "./controllers/User/FindUserController";
 import { ListUserController } from "./controllers/User/ListUserController";
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 import FindActivityController from "./controllers/Activity/FindActivityController";
+import { PlantWithActivityController } from "./controllers/Plant/PlantWithActivityController";
 
 const routes = Router();
 
@@ -25,6 +26,7 @@ const listUserController = new ListUserController();
 const authenticateUserController = new AuthenticateUserController();
 const findUserController = new FindUserController();
 const listPlantByUserController = new ListPlantByUserController();
+const plantWithActivityController = new PlantWithActivityController();
 
 const createPlantController = new CreatePlantController();
 const editPlantController = new EditPlantController();
@@ -45,6 +47,7 @@ routes.get("/user", ensureAuthenticated, listUserController.handle);
 routes.patch("/user", ensureAuthenticated, editUserController.handle);
 routes.get("/user/:id", ensureAuthenticated, findUserController.handle);
 routes.get("/plants/:userId", ensureAuthenticated, listPlantByUserController.handle); //TODO : Modificar nome da rota
+routes.get("/plant-with-activity/:id", plantWithActivityController.handle);
 
 routes.post("/plant", ensureAuthenticated, createPlantController.handle);
 routes.get("/plant/:id", ensureAuthenticated, findPlantController.handle);
