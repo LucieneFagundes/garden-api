@@ -1,31 +1,18 @@
 import { prisma } from "../../prisma";
 
-interface PlantsProps {
-  id?: string;
-  name?: string;
-  species?: string;
-  photo?: any;
-  notes?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  userId?: string;
-  activites?: Activities[ ]
-}
-interface Activities {
+interface IActivity {
   id: string;
-  activity?: string;
-  period?: string;
-  period_qd?: number;
-  notes?: string;
-  initial_event?: Date;
-  next_event?: Date;
-  created_at?: Date;
-  updated_at?: Date;
-  plantId?: string;
+  activity: string;
+  initial_event: Date;
+  next_event: Date;
+  plantId: string;
+  name: string;
+  photo: string;
 }
 
 export class PlantWithActivityService {
-  async execute(userId: string){
+  async execute(userId: string) {
+    let arrayActivities = [];
     const userExists = await prisma.user.findFirst({
       where: {
         id: userId,
@@ -42,18 +29,30 @@ export class PlantWithActivityService {
       },
     });
 
-    const arrayPlants: PlantsProps[] = plants; 
-
-    for (let i = 0; i < arrayPlants.length; i++) {
-      const activites = await prisma.activityCycle.findMany({
+    for (let i = 0; i < plants.length; i++) {
+      const activities = await prisma.activityCycle.findMany({
         where: {
-          plantId: arrayPlants[i].id,
+          plantId: plants[i].id,
         },
       });
-      arrayPlants[i].activites = activites 
-    } 
 
-    return arrayPlants;
+      for (let j = 0; j < activities.length; j++) {
+        activities.map((act: any) => {
+          return {
+            id: act.id,
+            activity: act.activity,
+            initial_event: act.initial_event,
+            next_event: act.next_event,
+            plantId: plants[i].id,
+            name: plants[i].name,
+            photo: plants[i].photo,
+          };
+        });
+
+        arrayActivities.push(activities[j]);
+      }
+    }
+
+    return arrayActivities;
   }
-
 }

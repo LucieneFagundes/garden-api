@@ -6,13 +6,12 @@ export class PlantWithActivityController {
     const id = request.params.id;
     const plantWithActivityService = new PlantWithActivityService();
 
-    try{
-      const plants = await plantWithActivityService.execute(id);
+    try {
+      const result = await plantWithActivityService.execute(id);
 
-      return response.json({plants});
+      return response.json(result);
     } catch (err) {
-      console.log(err);
+      return response.status(400).json(err);
     }
-
   }
 }
