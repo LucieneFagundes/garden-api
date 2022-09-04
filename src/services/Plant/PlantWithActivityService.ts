@@ -1,18 +1,32 @@
 import { prisma } from "../../prisma";
 
+interface IPlant {
+  id: string;
+  name: string;
+  species: string;
+  photo?: any;
+  notes: string;
+  created_at: Date;
+  updated_at: Date;
+  userId: string;
+}
+
 interface IActivity {
   id: string;
   activity: string;
+  period: string;
+  period_qd: number;
+  notes: string;
   initial_event: Date;
   next_event: Date;
+  created_at: Date;
+  updated_at: Date;
   plantId: string;
-  name: string;
-  photo: string;
+  plant: IPlant;
 }
-
 export class PlantWithActivityService {
   async execute(userId: string) {
-    let arrayActivities = [];
+    let arrayActivities: IActivity[] = [];
     const userExists = await prisma.user.findFirst({
       where: {
         id: userId,
@@ -34,6 +48,9 @@ export class PlantWithActivityService {
         where: {
           plantId: plants[i].id,
         },
+        include: {
+          plant: true
+        }
       });
 
       for (let j = 0; j < activities.length; j++) {
@@ -43,12 +60,12 @@ export class PlantWithActivityService {
             activity: act.activity,
             initial_event: act.initial_event,
             next_event: act.next_event,
-            plantId: plants[i].id,
-            name: plants[i].name,
-            photo: plants[i].photo,
+            plantId: act.plant.id,
+            name: act.plant.name,
+            photo: act.plant.photo,
           };
         });
-
+        
         arrayActivities.push(activities[j]);
       }
     }
