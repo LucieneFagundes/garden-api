@@ -17,7 +17,12 @@ export function setNextEvent(
   period_qd: number,
   initial_event: Date
 ) {
-  var data = new Date(initial_event);
+  var data = new Date(initial_event)
+  var today = new Date();
+
+  if(data < today) {
+    data = today;
+  }
 
   switch (period) {
     case "dia":

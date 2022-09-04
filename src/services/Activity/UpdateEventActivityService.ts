@@ -25,7 +25,6 @@ export class UpdateEventActivityService {
             }
         });
 
-        console.log(up_event)
         return up_event;
     }
 }

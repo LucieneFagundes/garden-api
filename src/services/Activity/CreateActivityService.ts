@@ -1,6 +1,5 @@
 import { Activity, Period } from "@prisma/client";
 import { prisma } from "../../prisma";
-import { setNextEvent } from "../../utils/utils";
 
 interface ICreateActivity {
     plantId: string;
@@ -27,7 +26,6 @@ export class CreateActivityService {
             throw new Error("Activity already exists")
         }
         
-        const next_event = setNextEvent(period, period_qd, initial_event);
 
 
         const care = await prisma.activityCycle.create({
@@ -38,7 +36,7 @@ export class CreateActivityService {
                 period_qd,
                 notes,
                 initial_event,
-                next_event,
+                next_event :initial_event,
             }
         })
 

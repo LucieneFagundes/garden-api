@@ -1,6 +1,5 @@
 import { Activity, Period } from "@prisma/client";
 import { prisma } from "../../prisma"
-import { setNextEvent } from "../../utils/utils";
 
 interface IEditActivity{
     id: string;
@@ -24,7 +23,6 @@ export class EditActivityService {
         }
         
         updated_at = new Date();
-        const nextEvent = setNextEvent(period, period_qd, initial_event);
         
         const care = await prisma.activityCycle.updateMany({
             where: { id },
@@ -34,7 +32,7 @@ export class EditActivityService {
                 period,
                 period_qd,
                 initial_event,
-                next_event: nextEvent,
+                next_event: initial_event,
                 updated_at
             }
         })
