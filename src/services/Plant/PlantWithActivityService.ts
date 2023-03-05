@@ -34,7 +34,7 @@ export class PlantWithActivityService {
     });
 
     if (!userExists) {
-      throw new Error("User not found");
+      throw new Error("Usuário não encontrado");
     }
 
     const plants = await prisma.plant.findMany({
@@ -49,8 +49,8 @@ export class PlantWithActivityService {
           plantId: plants[i].id,
         },
         include: {
-          plant: true
-        }
+          plant: true,
+        },
       });
 
       for (let j = 0; j < activities.length; j++) {
@@ -65,7 +65,7 @@ export class PlantWithActivityService {
             photo: act.plant.photo,
           };
         });
-        
+
         arrayActivities.push(activities[j]);
       }
     }

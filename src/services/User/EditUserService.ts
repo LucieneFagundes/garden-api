@@ -19,7 +19,7 @@ export class EditUserService {
         },
       });
 
-      const alreadyExists = tempUser.id === id ? true : false;
+      const alreadyExists = tempUser.id === id ? false : true;
 
       if (alreadyExists) {
         throw Error("Email already exists");

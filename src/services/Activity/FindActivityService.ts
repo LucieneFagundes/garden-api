@@ -4,12 +4,12 @@ export default class FindActivityService {
   async execute(id: string) {
     const activity = await prisma.activityCycle.findFirst({
       where: {
-        id
-      }
-    })
+        id,
+      },
+    });
 
-    if(!activity) {
-      throw new Error ("Activity not found");
+    if (!activity) {
+      throw new Error("Tarefa não encontrada");
     }
 
     return activity;

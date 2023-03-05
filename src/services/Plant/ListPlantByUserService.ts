@@ -9,7 +9,7 @@ export class ListPlantByUserService {
     });
 
     if (!userExists) {
-      throw new Error("User not found");
+      throw new Error("Usuário não encontrado");
     }
 
     const plants = await prisma.plant.findMany({
